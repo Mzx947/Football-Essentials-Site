@@ -1,399 +1,877 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProPitch Gear | Football Essentials</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent: #22c55e;
-            --accent-hover: #16a34a;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ProPitch Gear — Premium Football Equipment</title>
+  <meta name="description" content="ProPitch Gear — Professional-grade football boots, kits, and shin pads. Customizable local admin panel, Boot Finder by position & age, and verified retailer guide." />
+  <style>
+    :root{
+      --bg:#0b0d0f;
+      --card:#0f1215;
+      --muted:#9aa4a6;
+      --accent:#00ff99;
+      --accent-2:#00d5ff;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:14px;
+      --glass-border: rgba(255,255,255,0.04);
+      --max-width:1200px;
+      --shadow: 0 6px 18px rgba(0,0,0,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg, #060708 0%, #0b0d0f 60%);
+      color:#e6eef0;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:220px;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    .wrap{max-width:var(--max-width);margin:30px auto;padding:20px}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            line-height: 1.6;
-            padding-bottom: 50px;
-        }
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(180deg, rgba(5,6,7,0.9), rgba(5,6,7,0.75));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .nav-inner{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;gap:18px;padding:12px 20px;}
+    .logo{
+      display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;
+    }
+    .logo .badge{
+      width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+      display:flex;align-items:center;justify-content:center;color:#031012;font-weight:800;box-shadow: 0 6px 20px rgba(0,200,150,0.08);
+      font-family:monospace;
+    }
+    nav {margin-left:auto;display:flex;align-items:center;gap:12px}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    nav a:hover{color:var(--accent);background:var(--glass)}
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#02110f;padding:8px 14px;border-radius:10px;font-weight:700}
+    .hamburger{display:none;background:transparent;border:0;color:var(--muted);font-size:20px;padding:8px;border-radius:8px}
+    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-top:1px solid rgba(255,255,255,0.02)}
+    .mobile-menu a{padding:10px;border-radius:8px}
 
-        header {
-            background-color: #020617;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--accent);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    .hero{display:flex;gap:20px;align-items:center;padding:28px 0}
+    .hero .left{flex:1}
+    .hero h1{margin:0;font-size:36px;letter-spacing:-0.6px}
+    .hero p{color:var(--muted);margin-top:8px;font-size:15px}
+    .hero .searchbar{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+    .pill{background:var(--glass);border:1px solid var(--glass-border);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow)}
+    .boot-card{display:flex;gap:14px;align-items:center}
+    .shoe-art{width:92px;height:72px;border-radius:10px;background:linear-gradient(135deg, rgba(0,0,0,0.2), rgba(255,255,255,0.03));display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted);flex-shrink:0}
+    .card h3{margin:0;font-size:18px}
+    .meta{color:var(--muted);font-size:13px;margin-top:6px}
+    .why{margin-top:10px;color:#cfece6;font-size:13px}
+    .price{font-weight:800;color:var(--accent);font-size:16px}
+    .links{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:700;text-decoration:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.03)}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px dashed rgba(0,255,153,0.08)}
+    .tag{background:linear-gradient(90deg, rgba(0,213,255,0.08), rgba(0,255,153,0.06));color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
 
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-weight: 500;
-        }
+    .filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .select,select,input[type="search"]{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px 12px;border-radius:10px;color:var(--muted);min-width:160px}
+    .select:focus,select:focus,input[type="search"]:focus{outline:2px solid rgba(0,255,153,0.08)}
 
-        nav a:hover {
-            color: var(--accent);
-        }
+    section h2{margin:0 0 12px 0;font-size:20px}
+    .section-row{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
 
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+    .small-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .feature-line{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-top:6px}
 
-        .hero {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+    .retailers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .retailer{padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.03)}
+    .retailer h4{margin:0 0 8px 0}
+    .retailer p{margin:0;color:var(--muted);font-size:13px}
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+    .admin-toggle{
+      position:fixed;right:18px;bottom:18px;z-index:60;
+      display:flex;flex-direction:column;gap:8px;align-items:flex-end;
+    }
+    .admin-button{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#02110f;padding:12px 16px;border-radius:12px;font-weight:800;border:0;box-shadow:0 8px 30px rgba(0,200,150,0.1);cursor:pointer}
+    .admin-panel{
+      position:fixed;right:18px;bottom:78px;width:420px;max-width:calc(100% - 40px);z-index:60;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 20px 40px rgba(0,0,0,0.6)
+    }
+    .admin-panel h3{margin:0 0 10px 0}
+    .field{display:flex;flex-direction:column;margin-bottom:10px}
+    label{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:700}
+    input[type="text"],textarea,select,input[type="url"],input[type="number"]{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:10px;color:#dffbf0}
+    textarea{min-height:78px;resize:vertical}
+    .form-row{display:flex;gap:8px}
+    .form-actions{display:flex;gap:8px;justify-content:flex-end}
+    .muted-small{color:var(--muted);font-size:12px}
 
-        .hero p {
-            color: var(--text-muted);
-        }
+    footer{margin-top:30px;color:var(--muted);font-size:13px;padding:30px 0;border-top:1px solid rgba(255,255,255,0.02)}
+    .brandline{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 
-        /* Filter Controls */
-        .controls {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            background-color: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
+    @media (max-width:1000px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .small-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:720px){
+      .grid{grid-template-columns:1fr}
+      .small-grid{grid-template-columns:1fr}
+      nav{display:none}
+      .hamburger{display:inline-flex}
+      .hero h1{font-size:26px}
+      header .nav-inner{padding:10px}
+      .mobile-menu{display:flex}
+      .admin-panel{right:12px;left:12px;width:auto;bottom:90px}
+    }
 
-        .filter-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .filter-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
-
-        select, input, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 6px;
-            border: 1px solid #334155;
-            background-color: #0f172a;
-            color: #fff;
-            font-size: 0.95rem;
-        }
-
-        button.btn {
-            background-color: var(--accent);
-            color: #000;
-            font-weight: bold;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        button.btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        /* Display Grid */
-        .gear-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 1px solid #334155;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card h3 {
-            color: var(--accent);
-        }
-
-        .price-badge {
-            background-color: var(--accent);
-            color: #000;
-            font-weight: bold;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .card-tags {
-            margin: 0.5rem 0;
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background-color: #334155;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-        }
-
-        .card a.buy-btn {
-            display: block;
-            text-align: center;
-            background-color: var(--accent);
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 0.5rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-        }
-
-        /* Admin Form */
-        .admin-section {
-            margin-top: 4rem;
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 2px dashed var(--accent);
-        }
-
-        .admin-section h2 {
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-    </style>
+    .muted{color:var(--muted)}
+    .subtle{font-size:13px;color:var(--muted)}
+    .flex{display:flex;gap:8px;align-items:center}
+    .stack{display:flex;flex-direction:column;gap:8px}
+    .edit-controls{margin-left:auto;display:flex;gap:8px}
+    .danger{background:linear-gradient(90deg,#ff4d4d, #ff7b7b);color:#111;padding:8px 10px;border-radius:8px;border:0}
+  </style>
 </head>
 <body>
+  <header>
+    <div class="nav-inner" role="navigation" aria-label="Main Navigation">
+      <div class="logo" title="ProPitch Gear">
+        <div class="badge">PP</div>
+        <div>
+          <div style="font-size:13px;color:var(--muted)">Official</div>
+          <div style="letter-spacing:0.4px">ProPitch Gear</div>
+        </div>
+      </div>
 
-    <header>
-        <div class="logo">⚡ ProPitch Gear</div>
-        <nav>
-            <a href="#finder">Boot Finder</a>
-            <a href="#admin">Admin Mode</a>
-        </nav>
-    </header>
+      <nav aria-hidden="false">
+        <a href="#boot-finder">Boot Finder</a>
+        <a href="#kits">Kits</a>
+        <a href="#shinpads">Shin Pads</a>
+        <a href="#buy-guide">Buy Guide</a>
+        <a href="#" id="nav-admin-toggle" class="cta">Admin Mode</a>
+      </nav>
 
-    <div class="container">
-        <section class="hero">
-            <h1>Find the Perfect Football Boots</h1>
-            <p>Filter official boot recommendations by position and age group.</p>
-        </section>
-
-        <section class="controls" id="finder">
-            <div class="filter-group">
-                <label for="filter-position">Position</label>
-                <select id="filter-position" onchange="renderCards()">
-                    <option value="All">All Positions</option>
-                    <option value="Winger / ST">Winger / ST</option>
-                    <option value="Midfielder">Midfielder</option>
-                    <option value="Defender">Defender</option>
-                    <option value="Goalkeeper">Goalkeeper</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="filter-age">Age Category</label>
-                <select id="filter-age" onchange="renderCards()">
-                    <option value="All">All Ages</option>
-                    <option value="Kids (5-10)">Kids (5-10)</option>
-                    <option value="Youth (11-16)">Youth (11-16)</option>
-                    <option value="Adult (17+)">Adult (17+)</option>
-                </select>
-            </div>
-        </section>
-
-        <section class="gear-grid" id="gear-container">
-            </section>
-
-        <section class="admin-section" id="admin">
-            <h2>⚙️ Admin Mode: Add New Boots</h2>
-            <form id="add-shoe-form" onsubmit="handleAddShoe(event)">
-                <div class="form-grid">
-                    <div>
-                        <label>Shoe Name</label>
-                        <input type="text" id="shoe-name" placeholder="e.g. Nike Mercurial Vapor 15" required>
-                    </div>
-                    <div>
-                        <label>Price</label>
-                        <input type="text" id="shoe-price" placeholder="e.g. $130 or £110" required>
-                    </div>
-                    <div>
-                        <label>Position</label>
-                        <select id="shoe-position" required>
-                            <option value="Winger / ST">Winger / ST</option>
-                            <option value="Midfielder">Midfielder</option>
-                            <option value="Defender">Defender</option>
-                            <option value="Goalkeeper">Goalkeeper</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Age Group</label>
-                        <select id="shoe-age" required>
-                            <option value="Kids (5-10)">Kids (5-10)</option>
-                            <option value="Youth (11-16)">Youth (11-16)</option>
-                            <option value="Adult (17+)">Adult (17+)</option>
-                        </select>
-                    </div>
-                    <div style="grid-column: 1 / -1;">
-                        <label>Store Link</label>
-                        <input type="url" id="shoe-link" placeholder="https://..." required>
-                    </div>
-                </div>
-                <div style="margin-bottom: 1rem;">
-                    <label>Why it fits this position/age:</label>
-                    <textarea id="shoe-desc" rows="2" placeholder="Lightweight upper ideal for max sprint speed..." required></textarea>
-                </div>
-                <button type="submit" class="btn">Add Boot to Website</button>
-            </form>
-        </section>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
     </div>
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#boot-finder">Boot Finder</a>
+      <a href="#kits">Kits</a>
+      <a href="#shinpads">Shin Pads</a>
+      <a href="#buy-guide">Buy Guide</a>
+      <a href="#" id="mobile-admin-toggle">Admin Mode</a>
+    </div>
+  </header>
 
-    <script>
-        // Load default/saved items from localStorage
-        let gearList = JSON.parse(localStorage.getItem('propitch_gear')) || [
-            {
-                id: 1,
-                name: "Nike Mercurial Superfly 9",
-                price: "$150",
-                position: "Winger / ST",
-                age: "Youth (11-16)",
-                desc: "Built for explosive acceleration and high-speed traction.",
-                link: "https://www.nike.com"
-            },
-            {
-                id: 2,
-                name: "Adidas Predator Accuracy",
-                price: "$220",
-                position: "Midfielder",
-                age: "Adult (17+)",
-                desc: "Grippy rubber elements enhance spin and ball control for pinpoint passes.",
-                link: "https://www.adidas.com"
+  <main class="wrap" id="top">
+    <section class="hero">
+      <div class="left">
+        <h1>ProPitch Gear — Official Football Equipment Hub</h1>
+        <p>Find pro-level boots, kits, and shin pads tailored to your position and age. Add and manage gear with the Admin panel — saved to your browser.</p>
+
+        <div class="searchbar">
+          <div class="pill">Premium dark theme</div>
+          <div class="pill">Local admin & storage</div>
+          <div class="pill">Verified retailers</div>
+        </div>
+      </div>
+
+      <div style="width:320px">
+        <div class="card" style="padding:14px">
+          <h3 style="margin-bottom:6px">Quick Boot Finder</h3>
+          <div class="filters" style="margin-top:8px">
+            <select id="quick-position" aria-label="Quick Position">
+              <option value="All">All Positions</option>
+              <option>ST</option><option>Winger</option><option>CM</option><option>CB</option><option>Fullback</option><option>GK</option>
+            </select>
+            <select id="quick-age" aria-label="Quick Age">
+              <option value="All">All Ages</option>
+              <option value="Kids">Kids 5-10</option>
+              <option value="Youth">Youth 11-16</option>
+              <option value="Adult">Adult 17+</option>
+            </select>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" id="apply-quick">Apply</button>
+            <button class="btn secondary" id="reset-quick">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="boot-finder" aria-labelledby="finder-title">
+      <h2 id="finder-title">Boot Finder — Filter by Position & Age</h2>
+      <div class="card" style="padding:14px">
+        <div class="section-row">
+          <div class="filters" style="flex:1">
+            <select id="filter-position" class="select" aria-label="Filter Position">
+              <option value="All">All Positions</option>
+              <option>ST</option><option>Winger</option><option>CM</option><option>CB</option><option>Fullback</option><option>GK</option>
+            </select>
+            <select id="filter-age" class="select" aria-label="Filter Age">
+              <option value="All">All Ages</option>
+              <option value="Kids">Kids 5-10</option>
+              <option value="Youth">Youth 11-16</option>
+              <option value="Adult">Adult 17+</option>
+            </select>
+            <input type="search" id="filter-search" placeholder="Search shoe name or brand..." />
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn ghost" id="sort-price">Sort: Price</button>
+            <div class="muted-small">Results: <span id="finder-count">0</span></div>
+          </div>
+        </div>
+
+        <div id="boot-results" class="grid" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <section id="kits" aria-labelledby="kits-title" style="margin-top:20px">
+      <h2 id="kits-title">Official Kits — By Position & Age</h2>
+      <div class="small-grid" id="kits-grid"></div>
+    </section>
+
+    <section id="shinpads" aria-labelledby="shinpads-title" style="margin-top:20px">
+      <h2 id="shinpads-title">Shin Pads — Protection Matched to Position & Age</h2>
+      <div class="small-grid" id="shin-grid"></div>
+    </section>
+
+    <section id="buy-guide" aria-labelledby="buyguide-title" style="margin-top:20px">
+      <h2 id="buyguide-title">Where to Buy — Official Retailer Guide & Tips</h2>
+      <div class="card" style="padding:14px">
+        <div class="retailers" id="retailer-list">
+          <div class="retailer">
+            <h4>Nike</h4>
+            <p>Official Nike store: authentic product, strong return policy. Pro tip: Check product codes and official product images—mismatched logos are red flags.</p>
+            <div style="margin-top:10px"><a class="btn" href="https://www.nike.com" target="_blank" rel="noopener">Nike</a></div>
+          </div>
+          <div class="retailer">
+            <h4>Adidas</h4>
+            <p>Adidas online and flagship stores guarantee authenticity. Look for original tags, serials, and quality stitching.</p>
+            <div style="margin-top:10px"><a class="btn" href="https://www.adidas.com" target="_blank" rel="noopener">Adidas</a></div>
+          </div>
+          <div class="retailer">
+            <h4>Puma</h4>
+            <p>Puma-authorized dealers and their storefronts are safe. Avoid marketplaces without seller reputation or clear return policy.</p>
+            <div style="margin-top:10px"><a class="btn" href="https://www.puma.com" target="_blank" rel="noopener">Puma</a></div>
+          </div>
+          <div class="retailer">
+            <h4>Pro:Direct Soccer</h4>
+            <p>Specialized retailer with broad stock. Useful for rare pro models and past season clearance — verify seller badges.</p>
+            <div style="margin-top:10px"><a class="btn" href="https://www.prodirectsoccer.com" target="_blank" rel="noopener">Pro:Direct</a></div>
+          </div>
+          <div class="retailer">
+            <h4>Kitbag</h4>
+            <p>Kitbag offers international shipping and official kits. Check size guides carefully and compare SKU numbers.</p>
+            <div style="margin-top:10px"><a class="btn" href="https://www.kitbag.com" target="_blank" rel="noopener">Kitbag</a></div>
+          </div>
+          <div class="retailer">
+            <h4>Spotting Fakes — Quick Tips</h4>
+            <p><strong>1.</strong> Price too low? Be skeptical. <strong>2.</strong> Poor stitching and cheap materials = fake. <strong>3.</strong> Check official SKU and compare images. <strong>4.</strong> Prefer verified store badges and customer reviews.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="brandline">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="badge" style="width:44px;height:44px">PP</div>
+          <div>
+            <div style="font-weight:700">ProPitch Gear</div>
+            <div class="muted" style="font-size:13px">Trusted equipment guidance · Local admin · No backend required</div>
+          </div>
+        </div>
+        <div style="margin-left:auto" class="muted">Saved items stored in your browser's localStorage · Built for demo and internal cataloging</div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="admin-toggle" aria-hidden="false">
+    <button class="admin-button" id="open-admin">Admin / Manage Gear</button>
+  </div>
+
+  <div class="admin-panel" id="admin-panel" style="display:none" aria-hidden="true">
+    <div style="display:flex;align-items:center;gap:10px">
+      <h3 style="flex:1;margin:0">Admin / Add Gear</h3>
+      <button id="close-admin" class="btn secondary" title="Close admin panel">Close</button>
+    </div>
+    <div class="muted-small" style="margin-top:6px">Add Boots, Kits, or Shin Pads. Entries are saved locally (localStorage).</div>
+
+    <div style="height:10px"></div>
+    <form id="admin-form" autocomplete="off">
+      <div class="field">
+        <label for="item-type">Category</label>
+        <select id="item-type" required>
+          <option value="boot">Boot</option>
+          <option value="kit">Kit</option>
+          <option value="shinpad">Shin Pad</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="name">Name / Title</label>
+        <input id="name" type="text" placeholder="e.g., Mercurial Superfly 9" required />
+      </div>
+
+      <div class="form-row">
+        <div class="field" style="flex:1">
+          <label for="brand">Brand</label>
+          <input id="brand" type="text" placeholder="Nike / Adidas / Puma" />
+        </div>
+        <div class="field" style="width:160px">
+          <label for="price">Price (USD)</label>
+          <input id="price" type="number" min="0" step="0.01" placeholder="129.99" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field" style="flex:1">
+          <label for="position">Position</label>
+          <select id="position">
+            <option value="All">All</option>
+            <option>ST</option><option>Winger</option><option>CM</option><option>CB</option><option>Fullback</option><option>GK</option>
+          </select>
+        </div>
+        <div class="field" style="width:160px">
+          <label for="agecat">Age Category</label>
+          <select id="agecat">
+            <option value="Kids">Kids 5-10</option>
+            <option value="Youth">Youth 11-16</option>
+            <option value="Adult">Adult 17+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="why">Why it fits / Description</label>
+        <textarea id="why" placeholder="Enter the reasoning why this is a good fit for the selected position..." ></textarea>
+      </div>
+
+      <div class="field">
+        <label>Direct Store Links (fill URLs where available)</label>
+        <input id="link-nike" type="url" placeholder="Nike store URL (optional)" />
+        <input id="link-adidas" type="url" placeholder="Adidas store URL (optional)" style="margin-top:6px" />
+        <input id="link-prodirect" type="url" placeholder="Pro:Direct URL (optional)" style="margin-top:6px" />
+        <input id="link-kitbag" type="url" placeholder="Kitbag URL (optional)" style="margin-top:6px" />
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn secondary" id="clear-form">Clear</button>
+        <button type="submit" class="btn" id="save-item">Add Item</button>
+      </div>
+
+      <div style="height:10px"></div>
+      <div id="admin-feedback" class="muted-small"></div>
+    </form>
+
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.02);margin:10px 0" />
+    <div>
+      <h4 style="margin:0 0 8px 0">Manage Existing Entries</h4>
+      <div id="admin-list" style="max-height:220px;overflow:auto"></div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const qs = s => document.querySelector(s);
+      const qsa = s => Array.from(document.querySelectorAll(s));
+      const uid = () => 'id_' + Math.random().toString(36).slice(2,9);
+      const STORAGE_KEY = 'propitch_items_v1';
+
+      const sampleItems = [
+        {
+          id: uid(), type:'boot', name:'Mercurial Superfly 9', brand:'Nike', position:'Winger', ageCategory:'Adult', price:229.99,
+          why:'Designed for explosive acceleration and touch — lightweight, snug fit for wide attackers.',
+          links:{ nike:'https://www.nike.com/t/mercurial-superfly', prodirect:'https://www.prodirectsoccer.com/mercurial-superfly' }
+        },
+        {
+          id: uid(), type:'boot', name:'Predator Accuracy', brand:'Adidas', position:'CM', ageCategory:'Adult', price:199.00,
+          why:'Control-oriented outsole and textured upper give midfielders added passing precision.',
+          links:{ adidas:'https://www.adidas.com/predator' }
+        },
+        {
+          id: uid(), type:'boot', name:'Phantom GT Junior', brand:'Nike', position:'ST', ageCategory:'Youth', price:99.99,
+          why:'Junior last with grip zones tuned for finishing and quick turns — ideal for young strikers.',
+          links:{ nike:'https://www.nike.com/phantom-gt-junior' }
+        },
+        {
+          id: uid(), type:'kit', name:'Home Kit — Club A', brand:'Adidas', position:'All', ageCategory:'Adult', price:79.99,
+          why:'Official home kit—breathable, club crest applied, match-ready.',
+          links:{ adidas:'https://www.adidas.com/club-a-kit' }
+        },
+        {
+          id: uid(), type:'shinpad', name:'Elite Guard Pro', brand:'Puma', position:'All', ageCategory:'Adult', price:39.99,
+          why:'Carbon-fiber composite shell with EVA backing for comfort and protection.',
+          links:{ puma:'https://www.puma.com/elite-guard-pro' }
+        }
+      ];
+
+      let items = [];
+
+      const bootResults = qs('#boot-results');
+      const finderCount = qs('#finder-count');
+      const filterPosition = qs('#filter-position');
+      const filterAge = qs('#filter-age');
+      const filterSearch = qs('#filter-search');
+      const sortPriceBtn = qs('#sort-price');
+
+      const kitsGrid = qs('#kits-grid');
+      const shinGrid = qs('#shin-grid');
+
+      const adminPanel = qs('#admin-panel');
+      const openAdminBtn = qs('#open-admin');
+      const closeAdminBtn = qs('#close-admin');
+      const navAdminToggle = qs('#nav-admin-toggle');
+      const mobileAdminToggle = qs('#mobile-admin-toggle');
+
+      const adminForm = qs('#admin-form');
+      const inputType = qs('#item-type');
+      const inputName = qs('#name');
+      const inputBrand = qs('#brand');
+      const inputPrice = qs('#price');
+      const inputPosition = qs('#position');
+      const inputAge = qs('#agecat');
+      const inputWhy = qs('#why');
+      const inputNike = qs('#link-nike');
+      const inputAdidas = qs('#link-adidas');
+      const inputProDirect = qs('#link-prodirect');
+      const inputKitbag = qs('#link-kitbag');
+      const adminList = qs('#admin-list');
+      const adminFeedback = qs('#admin-feedback');
+      const clearFormBtn = qs('#clear-form');
+
+      const hamburger = qs('#hamburger');
+      const mobileMenu = qs('#mobile-menu');
+
+      function load(){
+        let raw = null;
+        try{
+          raw = localStorage.getItem(STORAGE_KEY);
+        }catch(e){
+          console.warn('localStorage read failed', e);
+        }
+        if(raw){
+          try{
+            items = JSON.parse(raw) || [];
+          }catch(e){
+            console.error('Failed to parse storage, re-seeding', e);
+            items = sampleItems.slice();
+            save();
+          }
+        } else {
+          items = sampleItems.slice();
+          save();
+        }
+        renderAll();
+      }
+
+      function save(){
+        try{
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        }catch(e){
+          console.error('Failed to write storage', e);
+        }
+        // keep global dev helper in sync
+        if(window.ProPitch) window.ProPitch.itemsRef = items;
+      }
+
+      function renderAll(){
+        renderBoots();
+        renderKits();
+        renderShinPads();
+        renderAdminList();
+      }
+
+      function renderBoots(sortByPrice=false){
+        const position = filterPosition.value || 'All';
+        const age = filterAge.value || 'All';
+        const search = (filterSearch.value || '').trim().toLowerCase();
+
+        let boots = items.filter(i => i.type === 'boot');
+
+        if(position && position !== 'All'){
+          boots = boots.filter(b => (b.position === 'All' || b.position === position));
+        }
+        if(age && age !== 'All'){
+          boots = boots.filter(b => b.ageCategory === age);
+        }
+        if(search){
+          boots = boots.filter(b => (b.name + ' ' + (b.brand||'') + ' ' + (b.why||'')).toLowerCase().includes(search));
+        }
+        if(sortByPrice){
+          boots = boots.slice().sort((a,b)=> (a.price||0) - (b.price||0));
+        }
+
+        finderCount.textContent = boots.length;
+        bootResults.innerHTML = '';
+
+        if(boots.length === 0){
+          bootResults.innerHTML = '<div class="card" style="grid-column:1/-1"><div class="muted">No boots found for these filters. Use Admin to add more.</div></div>';
+          return;
+        }
+        boots.forEach(b => {
+          const card = document.createElement('div');
+          card.className = 'card boot-card';
+          card.innerHTML = `
+            <div class="shoe-art" aria-hidden="true">${escapeHtml((b.brand||'PP').slice(0,2).toUpperCase())}</div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:10px">
+                <h3>${escapeHtml(b.name)}</h3>
+                <div class="tag">${escapeHtml(b.brand||'Brand')}</div>
+                <div class="edit-controls" title="Edit / Delete">
+                  <button class="btn secondary" data-action="edit" data-id="${b.id}">Edit</button>
+                  <button class="btn" data-action="delete" data-id="${b.id}" style="background:transparent;border:1px solid rgba(255,0,0,0.06);color:#ff9a9a">Delete</button>
+                </div>
+              </div>
+              <div class="meta">${escapeHtml(b.position)} • ${escapeHtml(b.ageCategory)} • <span class="price">$${(b.price||0).toFixed(2)}</span></div>
+              <div class="why">${escapeHtml(b.why||'No description provided.')}</div>
+              <div class="links" style="margin-top:8px">
+                ${renderLinks(b.links)}
+                <a class="btn ghost" href="#" data-action="share" data-id="${b.id}">Share</a>
+              </div>
+            </div>
+          `;
+          bootResults.appendChild(card);
+        });
+      }
+
+      function renderKits(){
+        const kits = items.filter(i => i.type === 'kit');
+        kitsGrid.innerHTML = '';
+        if(kits.length === 0){
+          kitsGrid.innerHTML = `<div class="card">No kits found. Use Admin to add official kits.</div>`;
+          return;
+        }
+        kits.forEach(k => {
+          const c = document.createElement('div');
+          c.className = 'card';
+          c.innerHTML = `
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="width:68px;height:68px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800;color:#031012">${escapeHtml((k.brand||'PP').slice(0,2))}</div>
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <strong>${escapeHtml(k.name)}</strong>
+                  <div class="muted" style="font-size:13px;margin-left:auto">${escapeHtml(k.ageCategory)}</div>
+                </div>
+                <div class="subtle">${escapeHtml(k.why||'Official kit description')}</div>
+                <div style="margin-top:8px">${renderLinks(k.links,true)}</div>
+              </div>
+            </div>
+          `;
+          kitsGrid.appendChild(c);
+        });
+      }
+
+      function renderShinPads(){
+        const pads = items.filter(i => i.type === 'shinpad');
+        shinGrid.innerHTML = '';
+        if(pads.length === 0){
+          shinGrid.innerHTML = `<div class="card">No shin pads found. Use Admin to add approved shin pad models.</div>`;
+          return;
+        }
+        pads.forEach(p => {
+          const c = document.createElement('div');
+          c.className = 'card';
+          c.innerHTML = `
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="width:68px;height:68px;border-radius:10px;background:linear-gradient(135deg,#222,#111);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted)">${escapeHtml((p.brand||'PP').slice(0,2))}</div>
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <strong>${escapeHtml(p.name)}</strong>
+                  <div class="muted" style="font-size:13px;margin-left:auto">${escapeHtml(p.ageCategory)}</div>
+                </div>
+                <div class="subtle">${escapeHtml(p.why||'Protective, comfortable fit')}</div>
+                <div style="margin-top:8px">${renderLinks(p.links,true)}</div>
+              </div>
+            </div>
+          `;
+          shinGrid.appendChild(c);
+        });
+      }
+
+      function renderLinks(links = {}, small=false){
+        if(!links) links={};
+        const btns = [];
+        const storeNames = { nike:'Nike', adidas:'Adidas', puma:'Puma', prodirect:'Pro:Direct', kitbag:'Kitbag' };
+        for(const k of Object.keys(storeNames)){
+          if(links[k]){
+            btns.push(`<a class="btn" target="_blank" rel="noopener" href="${escapeAttr(links[k])}">${storeNames[k]}</a>`);
+          }
+        }
+        if(btns.length === 0){
+          return `<span class="muted-small">No official store links</span>`;
+        }
+        return btns.join('');
+      }
+
+      function renderAdminList(){
+        adminList.innerHTML = '';
+        if(items.length === 0){
+          adminList.innerHTML = '<div class="muted">No entries yet.</div>';
+          return;
+        }
+        items.slice().reverse().forEach(it => {
+          const row = document.createElement('div');
+          row.className = 'card';
+          row.style.display = 'flex';
+          row.style.alignItems = 'center';
+          row.style.justifyContent = 'space-between';
+          row.style.gap = '8px';
+          row.innerHTML = `
+            <div style="display:flex;gap:10px;align-items:center">
+              <div style="width:42px;height:42px;border-radius:9px;background:linear-gradient(90deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;color:#02110f;font-weight:800">${escapeHtml((it.brand||'PP').slice(0,2))}</div>
+              <div>
+                <div style="font-weight:700">${escapeHtml(it.name)}</div>
+                <div class="muted-small">${escapeHtml(it.type)} • ${escapeHtml(it.position||'All')} • ${escapeHtml(it.ageCategory||'All')}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" data-action="admin-edit" data-id="${it.id}">Edit</button>
+              <button class="btn secondary" data-action="admin-delete" data-id="${it.id}">Delete</button>
+            </div>
+          `;
+          adminList.appendChild(row);
+        });
+      }
+
+      function attachHandlers(){
+        filterPosition.addEventListener('change', ()=>renderBoots());
+        filterAge.addEventListener('change', ()=>renderBoots());
+        filterSearch.addEventListener('input', debounce(()=>renderBoots(),200));
+        qs('#apply-quick').addEventListener('click', ()=>{
+          filterPosition.value = qs('#quick-position').value;
+          filterAge.value = qs('#quick-age').value;
+          renderBoots();
+          window.location.hash = '#boot-finder';
+        });
+        qs('#reset-quick').addEventListener('click', ()=>{
+          filterPosition.value = 'All';
+          filterAge.value = 'All';
+          filterSearch.value = '';
+          renderBoots();
+        });
+
+        sortPriceBtn.addEventListener('click', ()=>{
+          const toggled = sortPriceBtn.dataset.toggled === '1';
+          sortPriceBtn.dataset.toggled = toggled ? '0' : '1';
+          sortPriceBtn.textContent = toggled ? 'Sort: Price' : 'Sort: Price (asc)';
+          renderBoots(!toggled);
+        });
+
+        bootResults.addEventListener('click', (e)=>{
+          const btn = e.target.closest('button, a');
+          if(!btn) return;
+          const action = btn.dataset.action;
+          const id = btn.dataset.id;
+          if(action === 'delete'){
+            if(!confirm('Delete this item from local catalog?')) return;
+            items = items.filter(i => i.id !== id);
+            save();
+            renderAll();
+            adminFeedback.textContent = 'Item deleted.';
+          } else if(action === 'edit'){
+            toggleAdmin(true);
+            populateFormForEdit(id);
+          } else if(action === 'share'){
+            const it = items.find(x=>x.id===id);
+            if(!it) return;
+            const text = `ProPitch suggestion: ${it.name} by ${it.brand} — ${it.position} / ${it.ageCategory}.`;
+            if(navigator.share){
+              navigator.share({title:it.name,text, url: location.href});
+            } else {
+              prompt('Copy share text', text);
             }
-        ];
+          }
+        });
 
-        function saveAndRender() {
-            localStorage.setItem('propitch_gear', JSON.stringify(gearList));
-            renderCards();
+        openAdminBtn.addEventListener('click', ()=>toggleAdmin(true));
+        if(navAdminToggle) navAdminToggle.addEventListener('click', (e)=>{ e.preventDefault(); toggleAdmin(true); });
+        if(mobileAdminToggle) mobileAdminToggle.addEventListener('click', (e)=>{ e.preventDefault(); toggleAdmin(true); });
+
+        closeAdminBtn && closeAdminBtn.addEventListener('click', ()=>toggleAdmin(false));
+
+        adminForm.addEventListener('submit', (e)=>{
+          e.preventDefault();
+          handleAdminSubmit();
+        });
+
+        adminList.addEventListener('click', (e)=>{
+          const btn = e.target.closest('button');
+          if(!btn) return;
+          const action = btn.dataset.action;
+          const id = btn.dataset.id;
+          if(action === 'admin-delete'){
+            if(!confirm('Delete entry permanently?')) return;
+            items = items.filter(i => i.id !== id);
+            save(); renderAll();
+            adminFeedback.textContent = 'Deleted entry.';
+          } else if(action === 'admin-edit'){
+            toggleAdmin(true);
+            populateFormForEdit(id);
+          }
+        });
+
+        clearFormBtn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          resetForm();
+        });
+
+        hamburger && hamburger.addEventListener('click', ()=>{
+          const open = mobileMenu.getAttribute('aria-hidden') === 'true' || mobileMenu.style.display === 'none';
+          mobileMenu.style.display = open ? 'flex' : 'none';
+          mobileMenu.setAttribute('aria-hidden', !open);
+        });
+      }
+
+      function toggleAdmin(show){
+        const isCurrentlyOpen = adminPanel.style.display === 'block' || adminPanel.getAttribute('aria-hidden') === 'false';
+        if(typeof show === 'undefined') show = !isCurrentlyOpen;
+        adminPanel.style.display = show ? 'block' : 'none';
+        adminPanel.setAttribute('aria-hidden', !show);
+        if(show){
+          inputName.focus();
+          window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});
+        } else {
+          resetForm();
+        }
+      }
+
+      function populateFormForEdit(id){
+        const it = items.find(x=>x.id === id);
+        if(!it) return;
+        inputType.value = it.type;
+        inputName.value = it.name || '';
+        inputBrand.value = it.brand || '';
+        inputPrice.value = it.price||'';
+        inputPosition.value = it.position || 'All';
+        inputAge.value = it.ageCategory || 'Adult';
+        inputWhy.value = it.why || '';
+        inputNike.value = (it.links && (it.links.nike || '')) || '';
+        inputAdidas.value = (it.links && (it.links.adidas || '')) || '';
+        inputProDirect.value = (it.links && (it.links.prodirect || '')) || '';
+        inputKitbag.value = (it.links && (it.links.kitbag || '')) || '';
+
+        adminForm.dataset.editing = id;
+        qs('#save-item').textContent = 'Save Changes';
+        adminFeedback.textContent = 'Editing mode: update values and click Save Changes.';
+      }
+
+      function resetForm(){
+        adminForm.removeAttribute('data-editing');
+        adminForm.reset();
+        inputType.value = 'boot';
+        inputAge.value = 'Kids';
+        inputPosition.value = 'All';
+        qs('#save-item').textContent = 'Add Item';
+        adminFeedback.textContent = '';
+      }
+
+      function handleAdminSubmit(){
+        const type = inputType.value;
+        const name = inputName.value.trim();
+        if(!name){
+          adminFeedback.textContent = 'Please enter a name/title.';
+          return;
+        }
+        const brand = inputBrand.value.trim();
+        const price = parseFloat(inputPrice.value) || 0;
+        const position = inputPosition.value || 'All';
+        const ageCategory = inputAge.value || 'Adult';
+        const why = inputWhy.value.trim();
+
+        const links = {};
+        if(inputNike.value.trim()) links.nike = inputNike.value.trim();
+        if(inputAdidas.value.trim()) links.adidas = inputAdidas.value.trim();
+        if(inputProDirect.value.trim()) links.prodirect = inputProDirect.value.trim();
+        if(inputKitbag.value.trim()) links.kitbag = inputKitbag.value.trim();
+
+        const editingId = adminForm.dataset.editing;
+        if(editingId){
+          const it = items.find(x=>x.id===editingId);
+          if(!it) { adminFeedback.textContent='Could not find item to edit.'; return; }
+          it.type = type;
+          it.name = name;
+          it.brand = brand;
+          it.price = price;
+          it.position = position;
+          it.ageCategory = ageCategory;
+          it.why = why;
+          it.links = links;
+          save();
+          renderAll();
+          adminFeedback.textContent = 'Updated item.';
+          resetForm();
+          return;
         }
 
-        function renderCards() {
-            const posFilter = document.getElementById('filter-position').value;
-            const ageFilter = document.getElementById('filter-age').value;
-            const container = document.getElementById('gear-container');
+        const newItem = {
+          id: uid(),
+          type,
+          name,
+          brand,
+          price,
+          position,
+          ageCategory,
+          why,
+          links
+        };
+        items.push(newItem);
+        save();
+        renderAll();
+        adminFeedback.textContent = 'Added ' + name + ' to catalog.';
+        adminForm.reset();
+        inputType.value = 'boot';
+        inputAge.value = 'Kids';
+        inputPosition.value = 'All';
+      }
 
-            container.innerHTML = '';
+      function escapeHtml(s){
+        if(!s && s !== 0) return '';
+        return String(s)
+          .replaceAll('&','&amp;')
+          .replaceAll('<','&lt;')
+          .replaceAll('>','&gt;')
+          .replaceAll('"','&quot;')
+          .replaceAll("'","&#39;");
+      }
+      function escapeAttr(s){ return escapeHtml(s); }
 
-            const filtered = gearList.filter(item => {
-                const matchPos = posFilter === 'All' || item.position === posFilter;
-                const matchAge = ageFilter === 'All' || item.age === ageFilter;
-                return matchPos && matchAge;
-            });
+      function debounce(fn,ms=200){
+        let t;
+        return function(...a){
+          clearTimeout(t);
+          t = setTimeout(()=>fn.apply(this,a), ms);
+        };
+      }
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">No boot recommendations found for this filter combination.</p>`;
-                return;
-            }
+      load();
+      attachHandlers();
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div>
-                        <div class="card-header">
-                            <h3>${item.name}</h3>
-                            <span class="price-badge">${item.price}</span>
-                        </div>
-                        <div class="card-tags">
-                            <span class="tag">📍 ${item.position}</span>
-                            <span class="tag">👤 ${item.age}</span>
-                        </div>
-                        <p style="margin-top: 0.5rem; color: #cbd5e1;">${item.desc}</p>
-                    </div>
-                    <div>
-                        <a href="${item.link}" target="_blank" class="buy-btn">Buy Official</a>
-                        <button onclick="deleteShoe(${item.id})" style="background: none; border: none; color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem; cursor: pointer; width: 100%;">Remove Item</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+      window.ProPitch = {
+        itemsRef: items,
+        saveNow: save,
+        getItems: ()=>items,
+        resetCatalog: ()=>{
+          if(confirm('Reset catalog to defaults? This will overwrite your local saved items.')) {
+            items = sampleItems.slice();
+            save(); renderAll();
+          }
+        },
+        clearAll: ()=>{
+          if(confirm('Clear all items from storage? This cannot be undone.')){
+            items = []; save(); renderAll();
+          }
         }
+      };
 
-        function handleAddShoe(e) {
-            e.preventDefault();
-            
-            const newShoe = {
-                id: Date.now(),
-                name: document.getElementById('shoe-name').value,
-                price: document.getElementById('shoe-price').value,
-                position: document.getElementById('shoe-position').value,
-                age: document.getElementById('shoe-age').value,
-                link: document.getElementById('shoe-link').value,
-                desc: document.getElementById('shoe-desc').value
-            };
-
-            gearList.push(newShoe);
-            saveAndRender();
-
-            // Clear form inputs
-            document.getElementById('add-shoe-form').reset();
-            alert('Boot added successfully with price!');
-        }
-
-        function deleteShoe(id) {
-            gearList = gearList.filter(item => item.id !== id);
-            saveAndRender();
-        }
-
-        // Initial Load
-        renderCards();
-    </script>
+      renderBoots();
+    })();
+  </script>
 </body>
 </html>
